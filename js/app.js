@@ -28,7 +28,7 @@
     span.className = 'ambient-emoji';
     span.textContent = AMBIENT_EMOJIS[Math.floor(Math.random() * AMBIENT_EMOJIS.length)];
     const left = Math.random() * 50;
-    const duration = 10 + Math.random() * 3;
+    const duration = 5 + Math.random() * 1.5;
     const drift = (Math.random() - 0.5) * 200;
     const size = 1.4 + Math.random() * 1.8;
     span.style.left = left + 'vw';
