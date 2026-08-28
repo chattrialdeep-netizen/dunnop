@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000">
+  <defs>
+    <linearGradient id="g3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00e5ff"/>
+      <stop offset="50%" stop-color="#43ea7f"/>
+      <stop offset="100%" stop-color="#ffe45e"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="1000" fill="url(#g3)"/>
+  <circle cx="400" cy="380" r="220" fill="#ffffff" opacity="0.12"/>
+  <text x="400" y="430" font-size="220" text-anchor="middle" dominant-baseline="middle">🎓</text>
+  <text x="400" y="700" font-size="64" font-family="Arial, sans-serif" font-weight="700" fill="#1a1a1a" text-anchor="middle">Alex Kim</text>
+  <text x="400" y="770" font-size="34" font-family="Arial, sans-serif" fill="#1a1a1acc" text-anchor="middle">Class of 2026</text>
+  <text x="400" y="940" font-size="24" font-family="Arial, sans-serif" fill="#1a1a1a88" text-anchor="middle">DEMO PLACEHOLDER — replace with a real photo</text>
+</svg>
