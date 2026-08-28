@@ -118,7 +118,7 @@
     const common = { shapes, scalar, gravity: 0.6, ticks: 220, disableForReduceMotion: true };
 
     // center upward cannon
-    myConfetti({ ...common, particleCount: 1000, spread: 110, startVelocity: 65, origin: { x: 0.5, y: 0.9 } });
+    myConfetti({ ...common, particleCount: 500, spread: 110, startVelocity: 65, origin: { x: 0.5, y: 0.9 } });
     // left cannon
     setTimeout(() => {
       myConfetti({ ...common, particleCount: 500, angle: 60, spread: 80, startVelocity: 70, origin: { x: 0, y: 1 } });
@@ -129,7 +129,7 @@
     }, 150);
     // second wave, wider spread from center
     setTimeout(() => {
-      myConfetti({ ...common, particleCount: 1000, spread: 200, startVelocity: 55, origin: { x: 0.5, y: 0.5 }, gravity: 0.5 });
+      myConfetti({ ...common, particleCount: 100, spread: 200, startVelocity: 55, origin: { x: 0.5, y: 0.5 }, gravity: 0.5 });
     }, 500);
     // relentless side cannons for a few seconds
     let volleys = 0;
