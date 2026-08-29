@@ -23,10 +23,10 @@
 
   // ---------- letter glitch background ----------
   function createLetterGlitch(canvas, {
-    colors = ['#00FF00'],
+    colors = ['#00FF41', '#00cc35', '#00992a', '#00661c'],
     glitchSpeed = 50,
     smooth = true,
-    characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$&*()-_+=/[]{};:<>.,0123456789',
+    characters = 'ｦｱｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾂﾃﾅﾆﾇﾈﾊﾋﾎﾏﾐﾑﾒﾓﾔﾕﾗﾘﾜ0123456789:・."=*+-<>¦',
   } = {}) {
     const ctx = canvas.getContext('2d');
     const fontSize = 16;
@@ -77,7 +77,7 @@
       if (!letters.length) return;
       const { width, height } = canvas.getBoundingClientRect();
       ctx.clearRect(0, 0, width, height);
-      ctx.font = `${fontSize}px monospace`;
+      ctx.font = `${fontSize}px 'Share Tech Mono', monospace`;
       ctx.textBaseline = 'top';
       letters.forEach((letter, i) => {
         const x = (i % grid.columns) * charWidth;
@@ -163,7 +163,7 @@
 
   if (glitchCanvas) {
     createLetterGlitch(glitchCanvas, {
-      colors: ['#00FF00'],
+      colors: ['#00FF41', '#00cc35', '#00992a', '#00661c'],
       glitchSpeed: 50,
       smooth: true,
     });
