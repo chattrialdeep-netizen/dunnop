@@ -16,16 +16,18 @@
 </head>
 <body>
 
-<div class="ambient-layer" id="ambientLayer" aria-hidden="true"></div>
+<div class="letter-glitch" id="letterGlitch" aria-hidden="true">
+  <canvas id="glitchCanvas"></canvas>
+  <div class="letter-glitch-vignette-center"></div>
+</div>
 
 <button id="muteBtn" class="mute-btn" type="button" aria-label="Toggle sound">🔊</button>
 
 <main class="stage">
 
   <section id="entryScreen" class="panel entry-panel">
-    <p class="emoji-row" aria-hidden="true">🎓🎉🎊✨🥳🏆📜🌟💫🎈🙌🔥💯😍🥂🍾🌈⭐🤩👏</p>
-    <h1 class="glitch-title" data-text="ENTER CODE">🎓✨🎉 ENTER CODE 🥳🎊🏆</h1>
-    <p class="subtitle">🔑✨ Enter your code. 💥🔥 Unleash chaos. 📸🌟 See your photo. 🎓✨🎊🙌🥳🎉💯</p>
+    <h1 class="glitch-title" data-text="ENTER CODE">ENTER CODE</h1>
+    <p class="subtitle">Enter your code to reveal your graduation photo.</p>
 
     <form id="codeForm" class="code-form" autocomplete="off">
       <input
@@ -33,29 +35,26 @@
         class="code-input"
         type="text"
         name="code"
-        placeholder="✍️🔠 enter your code... 🔑✨"
+        placeholder="enter your code..."
         aria-label="Enter your code"
         maxlength="64"
         required
       >
-      <button type="submit" class="unlock-btn">🔓✨ UNLOCK 🚀🔥🎉</button>
+      <button type="submit" class="unlock-btn">UNLOCK</button>
     </form>
 
     <p id="errorMsg" class="error-msg" role="alert" aria-live="assertive"></p>
 
-    <p class="hint">👀🤫 psst — try <code>jashdkjas9348</code> 🔥✨😉</p>
-    <p class="emoji-row" aria-hidden="true">🎉🎊🥳🎓🏆📸🌈⭐💫🔥💯🙌👏🍾🥂🤩😍✨🎈🌟</p>
+    <p class="hint">psst — try <code>jashdkjas9348</code></p>
   </section>
 
   <section id="revealScreen" class="panel reveal-panel" hidden>
-    <p class="emoji-row" aria-hidden="true">🎉🎊🥳🎓🏆📸🌈⭐💫🔥💯🙌👏🍾🥂🤩😍✨🎈🌟</p>
-    <h2 id="congratsText" class="congrats-text">🎉🥳🎊 CONGRATULATIONS! 🎓🏆🙌🎈✨</h2>
+    <h2 id="congratsText" class="congrats-text">CONGRATULATIONS!</h2>
     <div class="photo-frame">
       <img id="revealImg" class="reveal-img" src="" alt="Your graduation photo">
     </div>
     <p id="revealName" class="reveal-name"></p>
-    <button id="againBtn" class="again-btn" type="button">🔄✨ Try Another Code 🎲🔥🎉</button>
-    <p class="emoji-row" aria-hidden="true">🎓🎉🎊✨🥳🏆📜🌟💫🎈🙌🔥💯😍🥂🍾🌈⭐🤩👏</p>
+    <button id="againBtn" class="again-btn" type="button">Try Another Code</button>
   </section>
 
 </main>
