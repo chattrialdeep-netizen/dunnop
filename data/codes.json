@@ -1,5 +1,14 @@
 {
-  "jashdkjas9348": { "image": "images/placeholder-1.svg", "name": "Jane Doe" },
-  "demo-code-2": { "image": "images/placeholder-2.svg", "name": "Sam Lee" },
-  "demo-code-3": { "image": "images/placeholder-3.svg", "name": "Alex Kim" }
+  "jashdkjas9348": {
+    "name": "Jane Doe",
+    "message": "Dear Jane,\n\n[placeholder — swap this for the real letter later]\n\nYou found the code. That part's done. What I actually want to say is still being written, but I wanted you to see this screen first, so you'd know something's coming.\n\nHold tight.\n\n— M"
+  },
+  "demo-code-2": {
+    "name": "Sam Lee",
+    "message": "Dear Sam,\n\n[placeholder — swap this for the real letter later]\n\nConsider this a preview screen while the actual words get written. The code worked, the channel's open, the rest is on its way.\n\n— M"
+  },
+  "demo-code-3": {
+    "name": "Alex Kim",
+    "message": "Dear Alex,\n\n[placeholder — swap this for the real letter later]\n\nCode accepted. This is just a dummy transmission for now, but the real one will land here soon.\n\n— M"
+  }
 }
