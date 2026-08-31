@@ -5,7 +5,10 @@
   const revealScreen = document.getElementById('revealScreen');
   const codeForm = document.getElementById('codeForm');
   const codeInput = document.getElementById('codeInput');
-  const errorMsg = document.getElementById('errorMsg');
+  const codeField = document.getElementById('codeField');
+  const verifyBtn = document.getElementById('verifyBtn');
+  const statusBar = document.getElementById('statusBar');
+  const statusText = document.getElementById('statusText');
   const crtMonitor = document.getElementById('crtMonitor');
   const crtScreen = document.getElementById('crtScreen');
   const terminalOutput = document.getElementById('terminalOutput');
@@ -371,8 +374,15 @@
     panel.classList.add('anim-in');
   }
 
+  function setStatus(text, mode) {
+    statusBar.classList.remove('is-error', 'is-success');
+    if (mode) statusBar.classList.add(mode);
+    statusText.innerHTML = mode
+      ? text
+      : `${text}<span class="auth-card__cursor">_</span>`;
+  }
+
   async function showSuccess(entry) {
-    errorMsg.classList.remove('visible');
     entryScreen.hidden = true;
     revealScreen.hidden = false;
     animateIn(revealScreen);
@@ -392,12 +402,12 @@
   let errorTimer = null;
 
   function showError() {
-    codeInput.classList.remove('shake');
-    void codeInput.offsetWidth; // force reflow so the shake can retrigger
-    codeInput.classList.add('shake');
+    codeField.classList.remove('shake');
+    void codeField.offsetWidth; // force reflow so the shake can retrigger
+    codeField.classList.add('shake');
+    codeField.classList.add('is-error');
 
-    errorMsg.textContent = 'ACCESS DENIED — code not recognized.';
-    errorMsg.classList.add('visible');
+    setStatus('Access key not recognized.', 'is-error');
 
     animateIn(entryScreen);
     playDenied();
@@ -405,7 +415,8 @@
 
     clearTimeout(errorTimer);
     errorTimer = setTimeout(() => {
-      errorMsg.classList.remove('visible');
+      codeField.classList.remove('is-error');
+      setStatus('Waiting for input');
     }, 3500);
   }
 
@@ -415,21 +426,58 @@
     animateIn(entryScreen);
     codeInput.value = '';
     terminalOutput.textContent = '';
+    codeField.classList.remove('is-error', 'shake');
+    verifyBtn.classList.remove('is-loading');
+    verifyBtn.disabled = false;
+    setStatus('Waiting for input');
     codeInput.focus();
   }
 
   // ---------- events ----------
+  codeInput.addEventListener('focus', () => {
+    if (!statusBar.classList.contains('is-error') && !statusBar.classList.contains('is-success')) {
+      setStatus('Key entry active');
+    }
+  });
+  codeInput.addEventListener('blur', () => {
+    if (!statusBar.classList.contains('is-error') && !statusBar.classList.contains('is-success')) {
+      setStatus('Waiting for input');
+    }
+  });
+  codeInput.addEventListener('input', () => {
+    if (statusBar.classList.contains('is-error')) {
+      codeField.classList.remove('is-error');
+      setStatus('Key entry active');
+    }
+  });
+
   codeForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const code = normalize(codeInput.value);
-    if (!code) return;
+    if (!code || verifyBtn.disabled) return;
 
-    const entry = codesMap.get(code);
-    if (entry) {
-      showSuccess(entry);
-    } else {
-      showError();
-    }
+    clearTimeout(errorTimer);
+    verifyBtn.disabled = true;
+    verifyBtn.classList.add('is-loading');
+    codeField.classList.remove('is-error');
+    setStatus('Verifying...', null);
+
+    setTimeout(() => {
+      const entry = codesMap.get(code);
+      verifyBtn.classList.remove('is-loading');
+      verifyBtn.disabled = false;
+
+      if (entry) {
+        setStatus('Verified.', 'is-success');
+        entryScreen.classList.add('is-success');
+        setTimeout(() => {
+          entryScreen.classList.remove('is-success');
+          showSuccess(entry);
+        }, 260);
+      } else {
+        showError();
+      }
+    }, 450);
   });
 
   againBtn.addEventListener('click', resetToEntry);

@@ -26,27 +26,70 @@
 
 <main class="stage">
 
-  <section id="entryScreen" class="panel entry-panel pixel-corners-lg">
-    <h1 class="glitch-title" data-text="ACCESS TERMINAL">ACCESS TERMINAL</h1>
-    <p class="subtitle">&gt; enter access code to decrypt your message_</p>
+  <section id="entryScreen" class="auth-card">
+    <span class="auth-card__accent auth-card__accent--top" aria-hidden="true"></span>
+    <span class="auth-card__accent auth-card__accent--left" aria-hidden="true"></span>
+    <span class="auth-card__accent auth-card__accent--bl" aria-hidden="true"></span>
+    <span class="auth-card__accent auth-card__accent--br" aria-hidden="true"></span>
+    <span class="auth-card__tick auth-card__tick--tl" aria-hidden="true"></span>
+    <span class="auth-card__tick auth-card__tick--tr" aria-hidden="true"></span>
+    <span class="auth-card__tick auth-card__tick--bl" aria-hidden="true"></span>
+    <span class="auth-card__tick auth-card__tick--br" aria-hidden="true"></span>
 
-    <form id="codeForm" class="code-form" autocomplete="off">
-      <input
-        id="codeInput"
-        class="code-input pixel-corners"
-        type="text"
-        name="code"
-        placeholder="ENTER CODE"
-        aria-label="Enter your code"
-        maxlength="64"
-        required
-      >
-      <button type="submit" class="unlock-btn pixel-corners">DECRYPT</button>
-    </form>
+    <header class="auth-card__bar">
+      <span class="auth-card__bar-host"><span class="auth-card__prompt">$_</span> localhost:22</span>
+      <span class="auth-card__bar-dots" aria-hidden="true">
+        <span class="auth-card__dot"></span>
+        <span class="auth-card__dot"></span>
+        <span class="auth-card__dot auth-card__dot--active"></span>
+      </span>
+    </header>
 
-    <p id="errorMsg" class="error-msg" role="alert" aria-live="assertive"></p>
+    <div class="auth-card__body">
+      <div class="auth-card__title-wrap">
+        <span class="auth-card__bracket auth-card__bracket--left" aria-hidden="true"></span>
+        <h1 class="auth-card__title">AUTHENTICATION</h1>
+        <span class="auth-card__bracket auth-card__bracket--right" aria-hidden="true"></span>
+      </div>
+      <div class="auth-card__title-rule" aria-hidden="true"></div>
 
-    <p class="hint">psst — try <code>jashdkjas9348</code></p>
+      <p class="auth-card__desc">Enter code to continue</p>
+
+      <form id="codeForm" class="auth-card__form" autocomplete="off" novalidate>
+        <div id="codeField" class="auth-card__field">
+          <span class="auth-card__field-active" aria-hidden="true"></span>
+          <span class="auth-card__field-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4.5" y="10.5" width="15" height="9.5" rx="1.2"></rect>
+              <path d="M8 10.5V7.6a4 4 0 0 1 8 0v2.9"></path>
+            </svg>
+          </span>
+          <label for="codeInput" class="sr-only">Enter your code</label>
+          <input
+            id="codeInput"
+            class="auth-card__input"
+            type="text"
+            name="code"
+            placeholder="Enter your code"
+            maxlength="64"
+            required
+          >
+          <span class="auth-card__field-indicator" aria-hidden="true">
+            <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+          </span>
+        </div>
+
+        <button type="submit" id="verifyBtn" class="auth-card__submit">
+          <span class="auth-card__submit-label">ENTER</span>
+          <span class="auth-card__submit-spinner" aria-hidden="true"></span>
+        </button>
+      </form>
+    </div>
+
+    <footer id="statusBar" class="auth-card__status">
+      <span class="auth-card__status-dot" aria-hidden="true"></span>
+      <span id="statusText" class="auth-card__status-text" role="status" aria-live="polite">Waiting for input<span class="auth-card__cursor">_</span></span>
+    </footer>
   </section>
 
   <section id="revealScreen" class="panel reveal-panel pixel-corners-lg" hidden>
