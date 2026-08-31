@@ -15,13 +15,6 @@
   const againBtn = document.getElementById('againBtn');
   const confettiCanvas = document.getElementById('confettiCanvas');
 
-  const BOOT_LINES = [
-    '> connection established',
-    '> decrypting file...',
-    '> access granted',
-    '',
-  ];
-
   const CELEBRATE_EMOJIS = ['🎓', '🎉', '🎊', '📜', '🥳', '✨', '👏', '🌟', '🏆', '🎈', '🙌', '💥', '🤩', '💯', '🔥', '🥂', '🍾', '🌈', '⭐', '😍', '🎇', '🎆', '🪅', '🎁', '💪', '👑', '🚀', '💎', '🌠', '🕺', '💃', '🥇', '🎯', '🧑‍🎓', '👩‍🎓', '🎵', '🎶', '🤟', '🙆', '🎺'];
   const CONFUSED_EMOJIS = ['🤔', '❓', '😵‍💫', '🙅', '🚫', '😬', '🫤', '❌', '🤷', '😅', '🧐', '❗'];
 
@@ -323,43 +316,83 @@
     muteBtn.textContent = muted ? '🔇' : '🔊';
   });
 
-  // ---------- typewriter ----------
-  function typewriter(el, text, speed = 20) {
+  // ---------- terminal renderer (line-numbered typewriter) ----------
+  function typeTerminal(container, text, speed = 20) {
     return new Promise((resolve) => {
-      el.textContent = '';
-      let i = 0;
+      container.innerHTML = '';
+      const lines = text.split('\n');
+      let lineIndex = 0;
+      let charIndex = 0;
       let done = false;
       let timer = null;
+      let currentTextEl = null;
+
+      const cursor = document.createElement('span');
+      cursor.className = 'term-cursor';
+      cursor.textContent = '█';
+
+      function buildLine(index) {
+        const row = document.createElement('div');
+        row.className = 'term-line';
+        const num = document.createElement('span');
+        num.className = 'term-num';
+        if (lines[index].trim() !== '') num.textContent = String(index + 1).padStart(2, '0');
+        const textEl = document.createElement('span');
+        textEl.className = 'term-text';
+        row.appendChild(num);
+        row.appendChild(textEl);
+        container.appendChild(row);
+        return textEl;
+      }
+
+      function startLine() {
+        currentTextEl = buildLine(lineIndex);
+        charIndex = 0;
+        currentTextEl.appendChild(cursor);
+        stepChar();
+      }
 
       function finishNow() {
         if (done) return;
         done = true;
         clearTimeout(timer);
-        el.textContent = text;
+        container.innerHTML = '';
+        let lastTextEl = null;
+        lines.forEach((lineStr, index) => {
+          lastTextEl = buildLine(index);
+          lastTextEl.textContent = lineStr;
+        });
+        if (lastTextEl) lastTextEl.appendChild(cursor);
         finishTyping = null;
         resolve();
       }
 
-      function step() {
+      function stepChar() {
         if (done) return;
-        if (i < text.length) {
-          const ch = text[i];
-          el.textContent += ch;
-          i += 1;
+        const lineStr = lines[lineIndex];
+        if (charIndex < lineStr.length) {
+          const ch = lineStr[charIndex];
+          currentTextEl.insertBefore(document.createTextNode(ch), cursor);
+          charIndex += 1;
           if (Math.random() < 0.35) playKeyTick();
           let delay = speed;
-          if (ch === '\n') delay = speed * 7;
-          else if ('.,!?'.includes(ch)) delay = speed * 5;
-          timer = setTimeout(step, delay + Math.random() * speed * 0.6);
+          if ('.,!?'.includes(ch)) delay = speed * 5;
+          timer = setTimeout(stepChar, delay + Math.random() * speed * 0.6);
         } else {
-          done = true;
-          finishTyping = null;
-          resolve();
+          lineIndex += 1;
+          if (lineIndex < lines.length) {
+            timer = setTimeout(startLine, speed * 6);
+          } else {
+            done = true;
+            finishTyping = null;
+            resolve();
+          }
         }
       }
 
       finishTyping = finishNow;
-      step();
+      if (lines.length) startLine();
+      else resolve();
     });
   }
 
@@ -395,8 +428,7 @@
     celebrationBurst();
 
     const message = entry.message || '[no message on file]';
-    const fullText = `${BOOT_LINES.join('\n')}\n${message}`;
-    await typewriter(terminalOutput, fullText, 22);
+    await typeTerminal(terminalOutput, message, 22);
   }
 
   let errorTimer = null;

@@ -92,14 +92,53 @@
     </footer>
   </section>
 
-  <section id="revealScreen" class="panel reveal-panel pixel-corners-lg" hidden>
+  <section id="revealScreen" class="crt-scene" hidden>
+    <aside class="hud-widget hud-widget--tl" aria-hidden="true">
+      <p class="hud-widget__title">SYS.0237//</p>
+      <p class="hud-widget__line">AUTH. VERIFIED</p>
+      <span class="hud-widget__bars"><i></i><i></i><i></i><i></i><i></i></span>
+    </aside>
+    <aside class="hud-widget hud-widget--bl" aria-hidden="true">
+      <p class="hud-widget__title">NODE//AX-17</p>
+      <p class="hud-widget__line">LINK: STABLE</p>
+      <span class="hud-widget__meter"></span>
+    </aside>
+    <aside class="hud-widget hud-widget--tr" aria-hidden="true">
+      <p class="hud-widget__title">PACKET FLOW</p>
+      <span class="hud-widget__wave"></span>
+      <p class="hud-widget__line" style="margin-top:6px;margin-bottom:0;">23.7 KB/S</p>
+    </aside>
+    <aside class="hud-widget hud-widget--br" aria-hidden="true">
+      <p class="hud-widget__title">FIREWALL</p>
+      <p class="hud-widget__line">ACTIVE</p>
+      <span class="hud-widget__bars"><i></i><i></i><i></i><i></i><i></i></span>
+    </aside>
+
     <div id="crtMonitor" class="crt-monitor">
-      <div class="crt-bezel pixel-corners-lg">
-        <div class="crt-led"></div>
+      <div class="crt-bezel">
+        <span class="crt-bezel__screw crt-bezel__screw--tl" aria-hidden="true"></span>
+        <span class="crt-bezel__screw crt-bezel__screw--tr" aria-hidden="true"></span>
+        <span class="crt-bezel__screw crt-bezel__screw--bl" aria-hidden="true"></span>
+        <span class="crt-bezel__screw crt-bezel__screw--br" aria-hidden="true"></span>
+
         <div class="crt-screen" id="crtScreen" title="tap to skip">
+          <div class="crt-screen__header">
+            <span class="crt-screen__label"><span class="crt-screen__prompt">&gt;_</span>TERMINAL 01</span>
+            <span class="crt-screen__indicators" aria-hidden="true"><i></i><i></i><i></i></span>
+          </div>
+
+          <div id="terminalOutput" class="terminal-output"></div>
+
+          <div class="crt-screen__footer">
+            <span class="crt-screen__footer-item">SECURE CHANNEL</span>
+            <span class="crt-screen__footer-item crt-screen__footer-item--center">ENCRYPTION: AES-256 <i class="crt-screen__meter"></i></span>
+            <span class="crt-screen__footer-item crt-screen__footer-item--status"><i class="crt-screen__dot"></i>STATUS: ONLINE</span>
+          </div>
+
           <div class="crt-scanlines"></div>
-          <pre id="terminalOutput" class="terminal-output"></pre>
         </div>
+
+        <div class="crt-led" aria-hidden="true"></div>
       </div>
       <div class="crt-neck"></div>
       <div class="crt-stand"></div>
