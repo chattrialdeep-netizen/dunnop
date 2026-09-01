@@ -14,6 +14,12 @@
   const terminalOutput = document.getElementById('terminalOutput');
   const againBtn = document.getElementById('againBtn');
   const confettiCanvas = document.getElementById('confettiCanvas');
+  const toast = document.getElementById('toast');
+  const toastText = document.getElementById('toastText');
+
+  const PENDING_CODES = new Set(
+    ['888.143.74', 'D4NYB0L', 'R0DB1L4T', '4N2NY', 'S0N13B0213'].map((c) => c.trim().toLowerCase())
+  );
 
   const CELEBRATE_EMOJIS = ['🎓', '🎉', '🎊', '📜', '🥳', '✨', '👏', '🌟', '🏆', '🎈', '🙌', '💥', '🤩', '💯', '🔥', '🥂', '🍾', '🌈', '⭐', '😍', '🎇', '🎆', '🪅', '🎁', '💪', '👑', '🚀', '💎', '🌠', '🕺', '💃', '🥇', '🎯', '🧑‍🎓', '👩‍🎓', '🎵', '🎶', '🤟', '🙆', '🎺'];
   const CONFUSED_EMOJIS = ['🤔', '❓', '😵‍💫', '🙅', '🚫', '😬', '🫤', '❌', '🤷', '😅', '🧐', '❗'];
@@ -431,6 +437,20 @@
     await typeTerminal(terminalOutput, message, 22);
   }
 
+  let toastTimer = null;
+
+  function showToast(message) {
+    clearTimeout(toastTimer);
+    toastText.textContent = message;
+    toast.classList.remove('is-visible');
+    void toast.offsetWidth;
+    toast.classList.add('is-visible');
+    playDenied();
+    toastTimer = setTimeout(() => {
+      toast.classList.remove('is-visible');
+    }, 4000);
+  }
+
   let errorTimer = null;
 
   function showError() {
@@ -495,9 +515,16 @@
     setStatus('Verifying...', null);
 
     setTimeout(() => {
-      const entry = codesMap.get(code);
       verifyBtn.classList.remove('is-loading');
       verifyBtn.disabled = false;
+
+      if (PENDING_CODES.has(code)) {
+        setStatus('Waiting for input');
+        showToast('DATA UPLOADING, PLEASE TRY AGAIN TOMORROW.');
+        return;
+      }
+
+      const entry = codesMap.get(code);
 
       if (entry) {
         setStatus('Verified.', 'is-success');
