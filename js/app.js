@@ -18,7 +18,7 @@
   const toastText = document.getElementById('toastText');
 
   const PENDING_CODES = new Set(
-    ['888.143.74', 'D4NYB0L'].map((c) => c.trim().toLowerCase())
+    ['888.143.74'].map((c) => c.trim().toLowerCase())
   );
 
   const CELEBRATE_EMOJIS = ['🎓', '🎉', '🎊', '📜', '🥳', '✨', '👏', '🌟', '🏆', '🎈', '🙌', '💥', '🤩', '💯', '🔥', '🥂', '🍾', '🌈', '⭐', '😍', '🎇', '🎆', '🪅', '🎁', '💪', '👑', '🚀', '💎', '🌠', '🕺', '💃', '🥇', '🎯', '🧑‍🎓', '👩‍🎓', '🎵', '🎶', '🤟', '🙆', '🎺'];
