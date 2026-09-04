@@ -17,6 +17,10 @@
   const toast = document.getElementById('toast');
   const toastText = document.getElementById('toastText');
 
+  const PENDING_CODES = new Set(
+    ['888.143.74'].map((c) => c.trim().toLowerCase())
+  );
+
   const CELEBRATE_EMOJIS = ['🎓', '🎉', '🎊', '📜', '🥳', '✨', '👏', '🌟', '🏆', '🎈', '🙌', '💥', '🤩', '💯', '🔥', '🥂', '🍾', '🌈', '⭐', '😍', '🎇', '🎆', '🪅', '🎁', '💪', '👑', '🚀', '💎', '🌠', '🕺', '💃', '🥇', '🎯', '🧑‍🎓', '👩‍🎓', '🎵', '🎶', '🤟', '🙆', '🎺'];
   const CONFUSED_EMOJIS = ['🤔', '❓', '😵‍💫', '🙅', '🚫', '😬', '🫤', '❌', '🤷', '😅', '🧐', '❗'];
 
